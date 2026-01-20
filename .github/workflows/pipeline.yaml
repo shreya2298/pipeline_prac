@@ -11,22 +11,32 @@ jobs:
   dummy-job:
     runs-on: ubuntu-latest
 
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Cache Node modules (dummy example)
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ runner.os }}
+
       - name: Say Hello
         run: echo "Hello from GitHub Actions 🚀"
 
-      - name: Show current date
-        run: date
-
-      - name: List repository files
-        run: ls -la
-
-      - name: Run dummy script
+      - name: Show Node & Python versions
         run: |
-          echo "Starting dummy task..."
-          sleep 3
-          echo "Dummy task completed ✅"
+          node -v
+          python --version
 
